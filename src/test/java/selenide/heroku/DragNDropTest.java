@@ -23,9 +23,9 @@ public class DragNDropTest {
         open("https://the-internet.herokuapp.com/drag_and_drop");
         SelenideElement blockA = $("#column-a");
         SelenideElement blockB = $("#column-b");
-//        drag and drop squares
+        //drag and drop squares
         blockA.dragAndDropTo(blockB);
-//        //assert that they've changed their places
+        //assert that they've changed their places
         blockA.shouldHave(text("B"));
         blockB.shouldHave(text("A"));
 
