@@ -19,15 +19,15 @@ public class DragNDropTest {
     }
 
     @Test
-    void BlockAChangesReplacedByBlockBTest(){
+    void blockAShouldBeReplacedByBlockBTest(){
         open("https://the-internet.herokuapp.com/drag_and_drop");
         SelenideElement blockA = $("#column-a");
         SelenideElement blockB = $("#column-b");
 //        drag and drop squares
-        $(blockA).dragAndDropTo(blockB);
+        blockA.dragAndDropTo(blockB);
 //        //assert that they've changed their places
-        $(blockA).shouldHave(text("B"));
-        $(blockB).shouldHave(text("A"));
+        blockA.shouldHave(text("B"));
+        blockB.shouldHave(text("A"));
 
         //by actions() somehow it's not working
         actions().clickAndHold(blockA).moveToElement(blockB).release().perform();
