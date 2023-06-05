@@ -1,12 +1,13 @@
 package selenide.heroku;
 
 import com.codeborne.selenide.Configuration;
+
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DragNDropTest {
 
@@ -20,12 +21,18 @@ public class DragNDropTest {
     @Test
     void BlockAChangesReplacedByBlockBTest(){
         open("https://the-internet.herokuapp.com/drag_and_drop");
+        SelenideElement blockA = $("#column-a");
+        SelenideElement blockB = $("#column-b");
+//        drag and drop squares
+        $(blockA).dragAndDropTo(blockB);
+//        //assert that they've changed their places
+        $(blockA).shouldHave(text("B"));
+        $(blockB).shouldHave(text("A"));
 
-        //drag and drop squares
-        $("#column-a").dragAndDropTo("#column-b");
-        //assert that they've changed their places
-        $("#column-a").shouldHave(text("B"));
-        $("#column-b").shouldHave(text("A"));
+        //by actions() somehow it's not working
+        actions().clickAndHold(blockA).moveToElement(blockB).release().perform();
+        actions().dragAndDrop(blockA, blockB).perform();
+
 
 
     }
